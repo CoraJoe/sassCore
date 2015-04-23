@@ -1,0 +1,67 @@
+$baseFontSize: 22px;
+$baseWidth: 720px;
+$currentWidth:720px!default;
+
+@function pxToEm($px) {
+  @return $px / $baseFontSize * 1em;
+}
+
+@function pxToRem($px) {
+  @return round($px/$baseFontSize)*1000/1000*1rem;
+}
+
+@mixin html {
+  font-size: $baseFontSize/($baseWidth/$currentminWidth);
+  max-width: $currentWidth !important;
+}
+
+$queryWidthList: (0, 320px), (320px, 400px), (400px, 500px), (500px, 600px), (600px, 720px);
+
+@each $minWidth, $maxWidth in $queryWidthList {
+  @if $maxWidth == 720px {
+    @include min-screen($minWidth) {
+      $currentWidth: 100%!global;
+      $currentminWidth: 720px!global;
+      html {
+        @include html
+      }
+    }
+  }
+  @else {
+    @include screen($minWidth, $maxWidth) {
+      $currentWidth: $maxWidth!global;
+      @if $minWidth == 0 {
+        $currentminWidth: 280px!global;
+        html{
+          min-width: $currentminWidth;
+        }
+      }@else{
+        $currentminWidth: $minWidth!global;
+      }
+      html {
+        @include html
+      }
+    }
+  }
+}
+
+// @include max-screen(320px){
+// 	$currentWidth: 320px!global;
+//   html{ @include html }; 
+// }   
+// @include screen(320px, 400px){
+// 	$currentWidth: 400px!global;
+//   html{ @include html }; 
+// }
+// @include screen(400px, 500px){
+// 	$currentWidth: 500px!global;
+//   html{ @include html }; 
+// }
+// @include screen(500px, 600px){
+// 	$currentWidth: 600px!global;
+//   html{ @include html }; 
+// }
+// @include min-screen(600px){
+// 	$currentWidth: 640px!global;
+//   html{ @include html }; 
+// }
