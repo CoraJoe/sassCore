@@ -20,7 +20,7 @@ sassCore分核心文件和扩展文件两种。其中核心文件提供一些基
 
 	@import "d:/sassCore/function";
 
-###扩展文件调用
+###扩展文件调用 
 
 根据需要调用，以table为例：
 
